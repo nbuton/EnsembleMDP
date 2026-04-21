@@ -4,7 +4,27 @@
 
 ---
 
-## Quick Start: How to Use It
+## 1. Installation
+
+You can install the package directly from the source repository using `pip`.
+
+### From GitHub
+To install the latest version from the main branch:
+```bash
+pip install git+https://github.com/nbuton/EnsembleMDP.git
+```
+
+### For Development
+If you want to contribute or modify the code:
+```bash
+git clone https://github.com/nbuton/EnsembleMDP.git
+cd EnsembleMDP
+pip install -e .
+```
+
+---
+
+## 2. Quick Start: How to Use It
 
 The package uses the `ProteinAnalyzer` object as the unified entry point. It handles file validation, topology correction, and frame subsampling automatically.
 
@@ -34,12 +54,12 @@ results = analyzer.compute_all(contact_cutoff=8.0)
 
 ---
 
-## Computed Properties
+## 3. Computed Properties
 
 Properties are classified into three levels of resolution: **Global**, **Local**, and **Pairwise**.
 
-### 1. Global Properties
-These metrics describe the overall dimensions, shape, and polymer-scaling behavior of the entire protein ensemble. For per-frame metrics, the library reports the mean and standard deviation across the trajectory.
+### Global Properties
+These metrics describe the overall dimensions, shape, and polymer-scaling behavior of the entire protein ensemble.
 
 * **Size Descriptors:** Includes the **Radius of Gyration ($R_g$)**, **End-to-End Distance ($R_{ee}$)**, and **Maximum Diameter**.
 * **Shape Descriptors:** Derived from the eigenvalues ($\lambda_i$) of the gyration tensor:
@@ -50,28 +70,30 @@ These metrics describe the overall dimensions, shape, and polymer-scaling behavi
     * **$\nu \approx 0.33$:** Folded/Globular state.
     * **$\nu \approx 0.588$:** Disordered/Expanded state (Self-Avoiding Walk).
 
+
+
 ---
 
-### 2. Local Properties
+### Local Properties
 Residue-specific metrics that provide a "track" of properties along the sequence ($L$).
 
 * **Secondary Structure Propensity:** The statistical likelihood of each residue to occupy one of the 8 standard DSSP states (H, G, I, E, B, T, S, C).
 * **Dihedral Entropy ($S_{dih}$):** Quantifies backbone flexibility by analyzing the joint probability distribution of the **$\phi$ (phi)** and **$\psi$ (psi)** torsion angles.
-* **Solvent Accessible Surface Area (SASA):** Measures residue exposure. The library computes both the mean and the variance of SASA to identify "gatekeeper" residues that toggle between buried and exposed states.
+* **Solvent Accessible Surface Area (SASA):** Measures residue exposure. The library computes both the mean and the variance of SASA to identify "gatekeeper" residues.
 
 ---
 
-### 3. Pairwise Properties
-Matrix-based metrics ($L \times L$) that characterize the spatial and dynamical coupling between pairs of residues.
+### Pairwise Properties
+Matrix-based metrics ($L \times L$) that characterize the spatial and dynamical coupling between residues.
 
-* **Distance Fluctuation ($CP_{ij}$):** Also known as **Communication Propensity**. It measures the stability of the distance between residues. Low fluctuation indicates high mechanical coupling, identifying potential allosteric signaling pathways.
+* **Distance Fluctuation ($CP_{ij}$):** Also known as **Communication Propensity**. Low fluctuation indicates high mechanical coupling, identifying potential allosteric signaling pathways.
     $$\mathrm{CP}_{ij} = \sqrt{\langle (d_{ij} - \langle d_{ij} \rangle)^2 \rangle}$$
 * **Dynamic Cross-Correlation (DCCM):** Represents the correlated displacements of atoms across the trajectory.
 * **Contact Map Frequency:** The probability $P_{ij}$ that two residues are within a specific spatial cutoff (default $8$ Å).
 
 ---
 
-## Property Summary Table
+## 4. Property Summary Table
 
 | Category | Property Name | Shape/Unit | Description |
 | :--- | :--- | :--- | :--- |
@@ -85,4 +107,4 @@ Matrix-based metrics ($L \times L$) that characterize the spatial and dynamical 
 | **Pairwise** | DCCM | $(L, L)$ | Correlated atomic motions |
 | **Pairwise** | Contact Frequency | $(L, L)$ | Probability of spatial proximity |
 
-> **Note:** For IDPs, the **Standard Deviation** of global properties is often as critical as the **Mean**, as it quantifies the structural heterogeneity of the ensemble. `EnsembleMDP` captures both by default.
+> **Note:** For IDPs, the **Standard Deviation** of global properties is critical, as it quantifies the structural heterogeneity of the ensemble. `EnsembleMDP` captures both by default.
