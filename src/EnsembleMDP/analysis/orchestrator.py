@@ -1,29 +1,29 @@
 import MDAnalysis
 import mdtraj as md
 import logging
-from idpmdp.analysis.checker import (
+from EnsembleMDP.analysis.checker import (
     check_atom_consistency,
     check_for_dssp_atoms,
     verify_protein_purity,
     verify_index_continuity,
 )
-from idpmdp.analysis.utils import (
+from EnsembleMDP.analysis.utils import (
     get_corrected_pdb,
     get_ensemble_summary,
     mean_std,
 )
-from idpmdp.analysis.global_metrics import (
+from EnsembleMDP.analysis.global_properties import (
     compute_end_to_end_distance,
     compute_gyration_tensor_properties,
     compute_maximum_diameter,
     compute_scaling_exponent,
 )
-from idpmdp.analysis.residue_level_metrics import (
+from EnsembleMDP.analysis.local_properties import (
     compute_dihedral_sequence_tracks,
     compute_residue_sasa,
     compute_secondary_structure_propensities,
 )
-from idpmdp.analysis.matrix_metrics import (
+from EnsembleMDP.analysis.pairwise_properties import (
     compute_contact_map,
     compute_dccm,
     compute_distance_fluctuations,
