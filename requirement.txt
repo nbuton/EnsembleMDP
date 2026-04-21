@@ -1,0 +1,10 @@
+joblib==1.5.3
+diptest==0.10.0
+ProDy==2.4.1
+h5py==3.14.0
+MDAnalysis==2.7.0
+mdtraj==1.10.3
+numpy==1.23.5
+protobuf==3.20.3
+torch==1.13.1
+tqdm==4.67.1
